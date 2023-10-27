@@ -26,7 +26,7 @@ public class CategoriaController implements CategoriaApi {
     }
 
     @Override
-    public ResponseEntity<?> criarCategoria(CategoriaRequest request) {
+    public ResponseEntity<CategoriaResponse> criarCategoria(CategoriaRequest request) {
         Categoria categoria = objectMapper.convertValue(request, Categoria.class);
         Categoria categoriaCriada = categoriaService.criarCategoria(categoria);
         CategoriaResponse response = objectMapper.convertValue(categoriaCriada, CategoriaResponse.class);
@@ -45,7 +45,7 @@ public class CategoriaController implements CategoriaApi {
     }
 
     @Override
-    public ResponseEntity<?> atualizarCategoria(UUID id, CategoriaRequest request) {
+    public ResponseEntity<CategoriaResponse> atualizarCategoria(UUID id, CategoriaRequest request) {
         Categoria categoria = objectMapper.convertValue(request,Categoria.class);
         Categoria categoriaAtualizada = categoriaService.atualizarCategoria(id,categoria);
         CategoriaResponse response = objectMapper.convertValue(categoriaAtualizada,CategoriaResponse.class);
