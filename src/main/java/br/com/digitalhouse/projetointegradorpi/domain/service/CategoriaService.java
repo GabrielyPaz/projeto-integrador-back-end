@@ -10,6 +10,6 @@ public interface CategoriaService {
 
      Categoria atualizarCategoria(UUID id, Categoria categoria);
 
-     List<Categoria> buscarCategorias();
+     List<Categoria> buscarCategorias(String nome);
      void deletarCategoria(UUID id);
 }

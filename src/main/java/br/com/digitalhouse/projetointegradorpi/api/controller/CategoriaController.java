@@ -34,8 +34,8 @@ public class CategoriaController implements CategoriaApi {
     }
 
     @Override
-    public ResponseEntity<CategoriaWrapperResponse> buscarCategorias() {
-        List<Categoria> categorias = categoriaService.buscarCategorias();
+    public ResponseEntity<CategoriaWrapperResponse> buscarCategorias(String nome) {
+        List<Categoria> categorias = categoriaService.buscarCategorias(nome);
         List<CategoriaListResponse> categoriaListResponses = categorias.stream()
                 .map(categoria -> objectMapper.convertValue(categoria, CategoriaListResponse.class))
                 .collect(Collectors.toList());

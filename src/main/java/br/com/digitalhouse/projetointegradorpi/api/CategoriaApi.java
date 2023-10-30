@@ -5,6 +5,7 @@ import br.com.digitalhouse.projetointegradorpi.api.dto.response.CategoriaRespons
 import br.com.digitalhouse.projetointegradorpi.api.dto.response.wrapperResponse.CategoriaWrapperResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,12 +19,13 @@ public interface CategoriaApi {
     ResponseEntity<CategoriaResponse> criarCategoria(@RequestBody @Valid CategoriaRequest request);
 
     @GetMapping
-    ResponseEntity<CategoriaWrapperResponse> buscarCategorias();
+    ResponseEntity<CategoriaWrapperResponse> buscarCategorias(@RequestParam String nome);
 
-    @PutMapping("id")
+    @PutMapping( "{id}")
+
     ResponseEntity<CategoriaResponse> atualizarCategoria(@PathVariable UUID id, @RequestBody @Valid CategoriaRequest request);
 
-    @DeleteMapping("id")
+    @DeleteMapping( "{id}")
     ResponseEntity<Void> deletarCategoria(@PathVariable UUID id);
 
 }
