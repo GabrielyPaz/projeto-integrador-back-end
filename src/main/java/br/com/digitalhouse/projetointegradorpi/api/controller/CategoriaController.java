@@ -8,6 +8,8 @@ import br.com.digitalhouse.projetointegradorpi.api.dto.response.wrapperResponse.
 import br.com.digitalhouse.projetointegradorpi.domain.entity.Categoria;
 import br.com.digitalhouse.projetointegradorpi.domain.service.CategoriaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,14 +36,18 @@ public class CategoriaController implements CategoriaApi {
     }
 
     @Override
-    public ResponseEntity<CategoriaWrapperResponse> buscarCategorias(String nome) {
-        List<Categoria> categorias = categoriaService.buscarCategorias(nome);
-        List<CategoriaListResponse> categoriaListResponses = categorias.stream()
-                .map(categoria -> objectMapper.convertValue(categoria, CategoriaListResponse.class))
-                .collect(Collectors.toList());
-        CategoriaWrapperResponse categoriaWrapperResponse = new CategoriaWrapperResponse();
-        categoriaWrapperResponse.setCategorias(categoriaListResponses);
-        return ResponseEntity.ok(categoriaWrapperResponse);
+    public ResponseEntity<Page<CategoriaListResponse>> buscarCategorias(Pageable page, String termo) {
+        Page<Categoria> categorias = categoriaService.buscarCategorias(page, termo);
+        Page<CategoriaListResponse> map = categorias.map(categoria -> new CategoriaListResponse(categoria.getId(),categoria.getNome(),categoria.getQualificacao()));
+        return ResponseEntity.ok(map);
+    }
+
+    @Override
+    public ResponseEntity<CategoriaResponse> buscarCategoriasPorId(UUID id) {
+        Categoria categoria = categoriaService.buscarCategoriaPorId(id);
+        CategoriaResponse response = categoriaResponseByCategoria(categoria);
+
+        return ResponseEntity.ok(response);
     }
 
     @Override
@@ -56,5 +62,9 @@ public class CategoriaController implements CategoriaApi {
     public ResponseEntity<Void> deletarCategoria(UUID id) {
         categoriaService.deletarCategoria(id);
         return ResponseEntity.ok().build();
+    }
+
+    private CategoriaResponse categoriaResponseByCategoria(Categoria categoria) {
+        return objectMapper.convertValue(categoria, CategoriaResponse.class);
     }
 }

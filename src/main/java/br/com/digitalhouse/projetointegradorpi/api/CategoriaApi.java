@@ -2,10 +2,14 @@ package br.com.digitalhouse.projetointegradorpi.api;
 
 import br.com.digitalhouse.projetointegradorpi.api.dto.request.CategoriaRequest;
 import br.com.digitalhouse.projetointegradorpi.api.dto.response.CategoriaResponse;
+import br.com.digitalhouse.projetointegradorpi.api.dto.response.listResponse.CategoriaListResponse;
 import br.com.digitalhouse.projetointegradorpi.api.dto.response.wrapperResponse.CategoriaWrapperResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +23,10 @@ public interface CategoriaApi {
     ResponseEntity<CategoriaResponse> criarCategoria(@RequestBody @Valid CategoriaRequest request);
 
     @GetMapping
-    ResponseEntity<CategoriaWrapperResponse> buscarCategorias(@RequestParam String nome);
+    ResponseEntity<Page<CategoriaListResponse>> buscarCategorias(@PageableDefault Pageable page, @RequestParam String termo);
+
+    @GetMapping("{id}")
+    ResponseEntity<CategoriaResponse> buscarCategoriasPorId(@PathVariable UUID id);
 
     @PutMapping( "{id}")
 

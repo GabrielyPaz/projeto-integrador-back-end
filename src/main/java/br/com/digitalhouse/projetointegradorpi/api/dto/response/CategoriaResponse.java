@@ -11,6 +11,7 @@ import java.util.UUID;
 public class CategoriaResponse {
 
     private UUID id;
+    private String nome;
     private String qualificacao;
     private String descricao;
     private String urlImagem;

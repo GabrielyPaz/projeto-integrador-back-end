@@ -4,9 +4,13 @@ import br.com.digitalhouse.projetointegradorpi.domain.entity.Categoria;
 import br.com.digitalhouse.projetointegradorpi.domain.exceptions.CategoryNotFoundException;
 import br.com.digitalhouse.projetointegradorpi.domain.repository.CategoriaRepository;
 import br.com.digitalhouse.projetointegradorpi.domain.service.CategoriaService;
+import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,8 +43,23 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
-    public List<Categoria> buscarCategorias(String nome) {
-        return this.categoriaRepository.findAll();
+    public Page<Categoria> buscarCategorias(Pageable page, String termo) {
+        return this.categoriaRepository.findAll((root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (termo != null && !termo.isBlank()) {
+                var searchTerm = "%" + termo + "%";
+                Predicate nome = criteriaBuilder.like(root.get("nome"), searchTerm);
+                predicates.add(nome);
+            }
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        }, page);
+    }
+
+    @Override
+    public Categoria buscarCategoriaPorId(UUID id) {
+        return this.categoriaRepository
+                .findById(id)
+                .orElseThrow(()-> new CategoryNotFoundException(id));
     }
 
     @Override
