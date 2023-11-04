@@ -4,6 +4,7 @@ import br.com.digitalhouse.projetointegradorpi.api.dto.request.CategoriaRequest;
 import br.com.digitalhouse.projetointegradorpi.api.dto.response.CategoriaResponse;
 import br.com.digitalhouse.projetointegradorpi.api.dto.response.listResponse.CategoriaListResponse;
 import br.com.digitalhouse.projetointegradorpi.api.dto.response.wrapperResponse.CategoriaWrapperResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,9 @@ import java.util.UUID;
 public interface CategoriaApi {
 
     @PostMapping
+    @ApiResponse(responseCode = "201")
+    @ApiResponse(responseCode = "400")
+    @ApiResponse(responseCode = "500")
     ResponseEntity<CategoriaResponse> criarCategoria(@RequestBody @Valid CategoriaRequest request);
 
     @GetMapping
