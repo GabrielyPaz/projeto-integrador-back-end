@@ -1,9 +1,7 @@
 package br.com.digitalhouse.projetointegradorpi.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.UUID;
 
@@ -12,6 +10,8 @@ import java.util.UUID;
 @Setter
 @ToString
 @Table(name="categorias")
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Categoria {
     @Id
