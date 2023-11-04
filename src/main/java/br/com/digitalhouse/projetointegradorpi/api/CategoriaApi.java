@@ -4,6 +4,9 @@ import br.com.digitalhouse.projetointegradorpi.api.dto.request.CategoriaRequest;
 import br.com.digitalhouse.projetointegradorpi.api.dto.response.CategoriaResponse;
 import br.com.digitalhouse.projetointegradorpi.api.dto.response.listResponse.CategoriaListResponse;
 import br.com.digitalhouse.projetointegradorpi.api.dto.response.wrapperResponse.CategoriaWrapperResponse;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -21,13 +24,14 @@ import java.util.UUID;
 public interface CategoriaApi {
 
     @PostMapping
-    @ApiResponse(responseCode = "201")
     @ApiResponse(responseCode = "400")
     @ApiResponse(responseCode = "500")
+    @ApiResponse(responseCode = "201", description = "Deu tudo certo por aqui",
+            content = @Content(schema = @Schema(implementation = CategoriaResponse.class)))
     ResponseEntity<CategoriaResponse> criarCategoria(@RequestBody @Valid CategoriaRequest request);
 
     @GetMapping
-    ResponseEntity<Page<CategoriaListResponse>> buscarCategorias(@PageableDefault Pageable page, @RequestParam String termo);
+    ResponseEntity<Page<CategoriaListResponse>> buscarCategorias(@PageableDefault Pageable page, @RequestParam(required = false) String termo);
 
     @GetMapping("{id}")
     ResponseEntity<CategoriaResponse> buscarCategoriasPorId(@PathVariable UUID id);

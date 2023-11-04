@@ -39,7 +39,7 @@ public class CategoriaServiceImpl implements CategoriaService {
         categoriaAtual.setQualificacao(categoria.getQualificacao());
         categoriaAtual.setUrlImagem(categoria.getUrlImagem());
 
-        return categoriaRepository.save(categoria);
+        return categoriaRepository.save(categoriaAtual);
     }
 
     @Override
