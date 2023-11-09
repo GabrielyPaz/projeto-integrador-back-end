@@ -3,7 +3,7 @@ package br.com.digitalhouse.projetointegradorpi.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -35,7 +35,7 @@ public class Carro {
     @OneToMany
     @JoinColumn(name="foto_id",
             foreignKey = @ForeignKey(name="fk_carro_foto"))
-    private FotoCarro fotoCarro;
+    private FotoCarroEnum fotoCarro;
 
     @OneToMany
     @JoinColumn(name="categoria_id", foreignKey = @ForeignKey(name="fk_carro_categoria"))

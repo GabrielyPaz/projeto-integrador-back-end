@@ -14,6 +14,7 @@ import java.util.UUID;
 @Entity
 @Table(name="categorias")
 public class Categoria {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -22,8 +23,11 @@ public class Categoria {
     @Column(length = 100)
     private String qualificacao;
     private String descricao;
-    @Column(columnDefinition = "text")
+    //@Column(columnDefinition = "text")
     //private String urlImagem;
     // Importei classe Enum
-    private IconeUrlEnum iconeUrl;
+    //private IconeUrlEnum iconeUrl;
+
+    // ==> CONSIDEREI NÃO TER IMAGEM
+
 }
