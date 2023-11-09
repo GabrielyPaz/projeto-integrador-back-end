@@ -14,5 +14,4 @@ public enum IconeUrlEnum {
     URL5("Câmbio Manual");
     
     private String nomeUrl;
-    
 }

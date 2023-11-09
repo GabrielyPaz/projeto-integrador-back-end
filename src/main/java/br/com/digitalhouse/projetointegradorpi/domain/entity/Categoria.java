@@ -9,10 +9,10 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-@Table(name="categorias")
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name="categorias")
 public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -23,5 +23,7 @@ public class Categoria {
     private String qualificacao;
     private String descricao;
     @Column(columnDefinition = "text")
-    private String urlImagem;
+    //private String urlImagem;
+    // Importei classe Enum
+    private IconeUrlEnum iconeUrl;
 }
