@@ -5,6 +5,7 @@ import br.com.digitalhouse.projetointegradorpi.api.CidadeApi;
 import br.com.digitalhouse.projetointegradorpi.api.dto.request.CidadeRequest;
 import br.com.digitalhouse.projetointegradorpi.api.dto.response.CidadeResponse;
 import br.com.digitalhouse.projetointegradorpi.api.dto.response.listResponse.CidadeListResponse;
+import br.com.digitalhouse.projetointegradorpi.domain.entity.Cidade;
 import br.com.digitalhouse.projetointegradorpi.domain.service.CidadeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.domain.Page;
@@ -34,6 +35,7 @@ public class CidadeController implements CidadeApi {
     @Override
     public ResponseEntity<Page<CidadeListResponse>> buscarCidades(Pageable page, String termo) {
         Page<Cidade> cidades =  cidadeService.buscarCidades(page, termo);
+        // Ele diz que o argumento dentro do Page abaixo está errado (ANDRÉ)
         Page<CidadeListResponse> map = cidades.map(cidade -> new CidadeListResponse(cidade.getId(),cidade.getNome(), cidade.getEstado()));
         return ResponseEntity.ok(map);
     }
