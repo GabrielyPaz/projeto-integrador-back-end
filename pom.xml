@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com.digitalhouse</groupId>
 	<artifactId>projeto-integrador-pi</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>projeto-integrador-pi</name>
 	<description>projeto-integrador-pi</description>
 	<properties>

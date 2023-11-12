@@ -27,11 +27,11 @@ public interface CarroApi {
     @GetMapping("{id}")
     ResponseEntity<CarroResponse> buscarCarroPorId(@PathVariable UUID id);
 
-    @GetMapping("{Cidade}") // Implementar busca de produtos por cidade ou Categoria -- arrumar esse endpoint--
-    ResponseEntity<CidadeResponse>buscarProdutosPorCidade();
 
     // ------- Falta configurar este endpoint abaixo referente a busca de carros por cidade ou categoria -------
-    ResponseEntity<CidadeResponse> buscarCarrosPorCidade();
+    @GetMapping("{Cidade}") // Implementar busca de produtos por cidade ou Categoria -- arrumar esse endpoint--
+    ResponseEntity<CidadeResponse>buscarCarrosPorCidade();
+
 
     // NÃO ENTENDI ESSE
     //ResponseEntity<CarroResponse> criarCarro(CarroRequest request);

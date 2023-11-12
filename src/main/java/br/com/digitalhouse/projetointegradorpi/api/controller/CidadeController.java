@@ -27,7 +27,7 @@ public class CidadeController implements CidadeApi {
     @Override
     public ResponseEntity<CidadeResponse> criarCidade(CidadeRequest request) {
         Cidade cidade = objectMapper.convertValue(request, Cidade.class);
-        Cidade cidadeCriada = CidadeService.criarCidade(cidade);
+        Cidade cidadeCriada = cidadeService.criarCidade(cidade);
         CidadeResponse response = objectMapper.convertValue(cidadeCriada,CidadeResponse.class);
         return ResponseEntity.ok(response);
     }

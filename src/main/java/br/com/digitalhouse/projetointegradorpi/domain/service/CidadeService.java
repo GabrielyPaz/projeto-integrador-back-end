@@ -6,7 +6,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface CidadeService {
 
-    static Cidade criarCidade(Cidade cidade);
+    Cidade criarCidade(Cidade cidade);
 
     Page<Cidade> buscarCidades(Pageable page, String termo);
+
 }
