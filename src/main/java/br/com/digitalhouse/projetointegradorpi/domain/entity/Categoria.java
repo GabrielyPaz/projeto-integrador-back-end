@@ -9,19 +9,25 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-@Table(name="categorias")
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name="categorias")
 public class Categoria {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @Column(length = 100)
-    private String nome;
+    private String nome; // pensei do nome ser um enum (ANDRÉ)
     @Column(length = 100)
     private String qualificacao;
     private String descricao;
-    @Column(columnDefinition = "text")
-    private String urlImagem;
+    //@Column(columnDefinition = "text")
+    //private String urlImagem;
+    // Importei classe Enum
+    private IconeUrlEnum iconeUrl;
+
+    // ==> CONSIDEREI NÃO TER IMAGEM
+
 }
