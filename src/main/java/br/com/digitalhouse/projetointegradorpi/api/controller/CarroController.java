@@ -39,7 +39,7 @@ public class CarroController implements CarroApi {
     @Override
     public ResponseEntity<Page<CarroListResponse>> buscarCarros(Pageable page, String termo) {
         Page<Carro>carros = carroService.buscarCarros(page,termo);
-        Page<CarroListResponse> map = carros.map(carro -> new Carro(carro.getId(), carro.getModelo(), carro.getDescricao()));
+        Page<CarroListResponse> map = carros.map(carro -> new CarroListResponse(carro.getId(), carro.getModelo(), carro.getDescricao()));
         return ResponseEntity.ok(map);
     }
 

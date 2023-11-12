@@ -44,5 +44,4 @@ public class Carro {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_endereco" , referencedColumnName = "id", foreignKey = @ForeignKey(name="fk_carro_endereco"))
     private Cidade cidade;
-
 }

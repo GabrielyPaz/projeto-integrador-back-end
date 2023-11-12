@@ -16,6 +16,4 @@ public class CategoriaListResponse {
     private String nome;
     private String qualificacao;
 
-
-
 }
