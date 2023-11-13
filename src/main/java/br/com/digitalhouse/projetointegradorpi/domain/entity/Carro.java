@@ -22,7 +22,7 @@ public class Carro {
     private String modelo;
     private String descricao;
 
-    @ManyToMany
+    @ManyToMany (cascade = CascadeType.PERSIST)
     @JoinTable(
             name="caracteristicaCarro",
             joinColumns = @JoinColumn(name = "id_carro",
@@ -35,7 +35,7 @@ public class Carro {
     @Enumerated(EnumType.STRING) // revisao com gabriel no relacionamento
     private FotoCarroEnum fotoCarro;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.PERSIST)
     @JoinColumn(name="categoria_id", foreignKey = @ForeignKey(name="fk_carro_categoria"))
     private Categoria categoria;
 

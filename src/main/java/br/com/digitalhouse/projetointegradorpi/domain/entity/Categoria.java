@@ -27,8 +27,8 @@ public class Categoria {
 
 //    @Column(columnDefinition = "text")
 //    private String urlImagem;
-    // Importei classe Enum
-    //private IconeUrlEnum iconeUrl;
+////     Importei classe Enum
+//    private IconeUrlEnum iconeUrl;
 
     // ==> CONSIDEREI NÃO TER IMAGEM
 

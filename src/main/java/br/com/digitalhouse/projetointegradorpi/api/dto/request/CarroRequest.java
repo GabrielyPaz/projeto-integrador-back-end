@@ -24,17 +24,10 @@ public class CarroRequest {
     @Schema(example = "Corolla")
     private String modelo;
     @NotBlank
-    @Schema(example = "modelo sedan mais confortavel da toyota")
+    @Schema(example = "Carro sedan mais confortavel da toyota")
     private String descricao;
-    @NotBlank
-    @Schema(example = "url do icone")
     private Set<Caracteristica> caracteristicasCarro;
-    @NotBlank
-    @Schema(example = "url do icone")
     private FotoCarroEnum fotoCarro;
-    @NotBlank
-
     private Categoria categoria;
-    @NotBlank
     private Cidade cidade;
 }
