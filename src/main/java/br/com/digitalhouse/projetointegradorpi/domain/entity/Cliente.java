@@ -19,6 +19,9 @@ public class Cliente {
     private String nome;
     private String sobrenome;
     private String email;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_cidade" , referencedColumnName = "id", foreignKey = @ForeignKey(name="fk_cliente_cidade"))
     private Cidade cidadeCliente;
 
 }

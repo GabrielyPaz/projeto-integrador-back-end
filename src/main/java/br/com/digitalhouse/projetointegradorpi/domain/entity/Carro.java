@@ -32,16 +32,14 @@ public class Carro {
     )
     private Set<Caracteristica> caracteristicasCarro;
 
-    @OneToMany
-    @JoinColumn(name="foto_id",
-            foreignKey = @ForeignKey(name="fk_carro_foto"))
+    @Enumerated(EnumType.STRING) // revisao com gabriel no relacionamento
     private FotoCarroEnum fotoCarro;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name="categoria_id", foreignKey = @ForeignKey(name="fk_carro_categoria"))
     private Categoria categoria;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST) // revisao com gabriel no relacionamento
     @JoinColumn(name = "id_endereco" , referencedColumnName = "id", foreignKey = @ForeignKey(name="fk_carro_endereco"))
     private Cidade cidade;
 }

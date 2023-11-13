@@ -8,6 +8,7 @@ import br.com.digitalhouse.projetointegradorpi.api.dto.response.listResponse.Car
 import br.com.digitalhouse.projetointegradorpi.domain.entity.Carro;
 import br.com.digitalhouse.projetointegradorpi.domain.service.CarroService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ public class CarroController implements CarroApi {
     private final ObjectMapper objectMapper;
     private final CarroService carroService;
 
+    @Autowired
     public CarroController(ObjectMapper objectMapper, CarroService carroService) {
         this.objectMapper = objectMapper;
         this.carroService = carroService;
@@ -34,7 +36,8 @@ public class CarroController implements CarroApi {
         return ResponseEntity.ok(response);
     }
 
-  //-------- precisa inserir no endpoint abaixo os campos List<caracteristicas>, List <Imagens>, Categoria e Cidade, referentes aos relacionamentos das tabelas-------
+  //-------- precisa inserir no endpoint abaixo os campos List<caracteristicas>,
+    // List <Imagens>, Categoria e Cidade, referentes aos relacionamentos das tabelas-------
 
     @Override
     public ResponseEntity<Page<CarroListResponse>> buscarCarros(Pageable page, String termo) {

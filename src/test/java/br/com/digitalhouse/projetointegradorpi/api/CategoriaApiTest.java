@@ -2,7 +2,9 @@ package br.com.digitalhouse.projetointegradorpi.api;
 
 import br.com.digitalhouse.projetointegradorpi.api.dto.request.CategoriaRequest;
 import br.com.digitalhouse.projetointegradorpi.domain.entity.Categoria;
+import br.com.digitalhouse.projetointegradorpi.domain.service.CarroService;
 import br.com.digitalhouse.projetointegradorpi.domain.service.CategoriaService;
+import br.com.digitalhouse.projetointegradorpi.domain.service.CidadeService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
@@ -26,8 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ActiveProfiles("test-integration")
-@WebMvcTest
-
+@WebMvcTest(controllers = CategoriaApi.class)
 class CategoriaApiTest {
 
     @Autowired
@@ -50,7 +51,7 @@ class CategoriaApiTest {
         CategoriaRequest request = new CategoriaRequest(nome,qualificacao,descricao,urlImagem);
         String requestBody = objectMapper.writeValueAsString(request);
 
-        Categoria categoria = new Categoria(id,nome,qualificacao,descricao,urlImagem);
+        Categoria categoria = new Categoria(id,nome,qualificacao,descricao);
 
         Mockito.when(categoriaService.criarCategoria(Mockito.any())).thenReturn(categoria);
         mvc.perform(post("/categorias")
@@ -64,13 +65,12 @@ class CategoriaApiTest {
                 .andExpect(jsonPath("$.nome", equalTo(nome)))
                 .andExpect(jsonPath("$.qualificacao", equalTo(qualificacao)))
                 .andExpect(jsonPath("$.descricao", equalTo(descricao)))
-                .andExpect(jsonPath("$.urlImagem", equalTo(urlImagem)))
         ;
 
     }
     @Test
      void dadoUmaCategoria_quandoChamamosBuscarCategoria_entaoRetornarCategoriaindicada() throws Exception{
-        Categoria categoria = new Categoria(UUID.randomUUID(),"grupo C","5 estrelas","economico com ar","https://unsplash.com/pt-br/fotografias/carro-azul-com-luz-branca-e-preta-_CiyeM2kvqs");
+        Categoria categoria = new Categoria(UUID.randomUUID(),"grupo C","5 estrelas","economico com ar");
 
         Page<Categoria> pagina1 = new PageImpl<>(List.of(categoria));
 

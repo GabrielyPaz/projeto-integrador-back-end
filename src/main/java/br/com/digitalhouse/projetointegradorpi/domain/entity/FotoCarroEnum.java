@@ -12,7 +12,7 @@ public enum FotoCarroEnum {
     SUV("url3"),
     IMPORTADO("url4");
 
-    private String urlFotoCarro;
+    private final String urlFotoCarro;
 
     // CONSIDEREI A IMAGEM DO CARRO ENUM
     // POIS SÓ HAVERIA UMA FOTO

@@ -35,7 +35,6 @@ public class CidadeController implements CidadeApi {
     @Override
     public ResponseEntity<Page<CidadeListResponse>> buscarCidades(Pageable page, String termo) {
         Page<Cidade> cidades =  cidadeService.buscarCidades(page, termo);
-        // Ele diz que o argumento dentro do Page abaixo está errado (ANDRÉ)
         Page<CidadeListResponse> map = cidades.map(cidade -> new CidadeListResponse(cidade.getId(),cidade.getNome(), cidade.getEstado()));
         return ResponseEntity.ok(map);
     }
