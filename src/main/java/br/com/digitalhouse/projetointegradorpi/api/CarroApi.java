@@ -1,9 +1,11 @@
 package br.com.digitalhouse.projetointegradorpi.api;
 
+import br.com.digitalhouse.projetointegradorpi.api.dto.openapi.PageExempleOpenApi;
 import br.com.digitalhouse.projetointegradorpi.api.dto.request.CarroRequest;
 import br.com.digitalhouse.projetointegradorpi.api.dto.response.CarroResponse;
 import br.com.digitalhouse.projetointegradorpi.api.dto.response.CidadeResponse;
 import br.com.digitalhouse.projetointegradorpi.api.dto.response.listResponse.CarroListResponse;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -21,18 +23,20 @@ public interface CarroApi {
     ResponseEntity<CarroResponse> criarCarro(@RequestBody @Valid CarroRequest request);
 
     @GetMapping
-    ResponseEntity<Page<CarroListResponse>> buscarCarros(@PageableDefault Pageable page,
-                                                        @RequestParam(required = false)
-                                                             String termo);
+    ResponseEntity<Page<CarroListResponse>> buscarCarros(@PageableDefault @Schema(implementation = PageExempleOpenApi.class)
+                                                         Pageable page,
+                                                         @RequestParam(required = false) String termo,
+                                                         @RequestParam(required = false) String cidade);
     @GetMapping("{id}")
     ResponseEntity<CarroResponse> buscarCarroPorId(@PathVariable UUID id);
 
 
-    // ------- Falta configurar este endpoint abaixo referente a busca de carros por cidade ou categoria -------
-    @GetMapping("{Cidade}") // Implementar busca de produtos por cidade ou Categoria -- arrumar esse endpoint--
-    ResponseEntity<CidadeResponse>buscarCarrosPorCidade();
 
 
-    // NÃO ENTENDI ESSE
-    //ResponseEntity<CarroResponse> criarCarro(CarroRequest request);
+//    // ------- Falta configurar este endpoint abaixo referente a busca de carros por cidade ou categoria -------
+//    @GetMapping("{Cidade}") // Implementar busca de produtos por cidade ou Categoria -- arrumar esse endpoint--
+//    ResponseEntity<CidadeResponse>buscarCarrosPorCidade();
+
+
+
 }

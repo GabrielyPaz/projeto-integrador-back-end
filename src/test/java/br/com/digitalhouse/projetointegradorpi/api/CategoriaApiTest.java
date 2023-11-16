@@ -82,5 +82,16 @@ class CategoriaApiTest {
 
         ;
     }
+
+    @Test
+    void dadoUmaCategoria_quandoChamamosAtualizarCategoria_entaoRetornarCategoriaAtualizada() throws Exception{
+
+    }
+
+    @Test
+    void dadoUmaCategoria_quandoChamamosBuscarCategoriaPorId_entaoRetornarCategoriaInformada() throws Exception{
+
+    }
+
     }
 

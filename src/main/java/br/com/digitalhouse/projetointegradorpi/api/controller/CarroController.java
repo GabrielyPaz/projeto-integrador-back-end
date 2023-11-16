@@ -31,17 +31,14 @@ public class CarroController implements CarroApi {
     @Override
     public ResponseEntity<CarroResponse> criarCarro(CarroRequest request) {
         Carro carro = objectMapper.convertValue(request, Carro.class);
-        Carro carroCriado = carroService.criarCarro(carro);
+        Carro carroCriado = carroService.criarCarro(carro, request.getCategoriaId(), request.getCidadeId(), request.getCaracteristicaCarroId() );
         CarroResponse response = objectMapper.convertValue(carroCriado, CarroResponse.class);
         return ResponseEntity.ok(response);
     }
 
-  //-------- precisa inserir no endpoint abaixo os campos List<caracteristicas>,
-    // List <Imagens>, Categoria e Cidade, referentes aos relacionamentos das tabelas-------
-
     @Override
-    public ResponseEntity<Page<CarroListResponse>> buscarCarros(Pageable page, String termo) {
-        Page<Carro>carros = carroService.buscarCarros(page,termo);
+    public ResponseEntity<Page<CarroListResponse>> buscarCarros(Pageable page, String termo, String cidade) {
+        Page<Carro>carros = carroService.buscarCarros(page,termo,cidade);
         Page<CarroListResponse> map = carros.map(carro -> new CarroListResponse(carro.getId(), carro.getModelo(), carro.getDescricao()));
         return ResponseEntity.ok(map);
     }
@@ -54,10 +51,10 @@ public class CarroController implements CarroApi {
     }
 
     // ------- Falta configurar este endpoint abaixo referente a busca de carros por cidade ou categoria -------
-    @Override
-    public ResponseEntity<CidadeResponse> buscarCarrosPorCidade() {
-        return null;
-    }
+//    @Override
+//    public ResponseEntity<CidadeResponse> buscarCarrosPorCidade() {
+//        return null;
+//    }
 
     private CarroResponse carroResponseByCarro(Carro carro) {
         return objectMapper.convertValue(carro, CarroResponse.class);

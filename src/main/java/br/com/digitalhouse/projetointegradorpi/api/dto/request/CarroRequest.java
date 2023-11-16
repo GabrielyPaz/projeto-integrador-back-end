@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -26,8 +27,8 @@ public class CarroRequest {
     @NotBlank
     @Schema(example = "Carro sedan mais confortavel da toyota")
     private String descricao;
-    private Set<Caracteristica> caracteristicasCarro;
+    private Set<UUID> caracteristicaCarroId;
     private FotoCarroEnum fotoCarro;
-    private Categoria categoria;
-    private Cidade cidade;
+    private UUID categoriaId;
+    private UUID cidadeId;
 }

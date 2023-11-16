@@ -21,6 +21,7 @@ public class Caracteristica {
     @Column(name = "id")
     private UUID id;
     private String nome;
+    //@Enumerated(EnumType.STRING)
     private IconeUrlEnum iconeUrl;
 
 }

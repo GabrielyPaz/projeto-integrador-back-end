@@ -18,8 +18,8 @@ public class CarroResponse {
     private UUID id;
     private String modelo;
     private String descricao;
-    private Set<Caracteristica> caracteristicasCarro;
+    private Set<CaracteristicaResponse> caracteristicasCarro;
     private FotoCarroEnum fotoCarro;
-    private Categoria categoria;
-    private Cidade cidade;
+    private CategoriaResponse categoria;
+    private CidadeResponse cidade ;
 }
