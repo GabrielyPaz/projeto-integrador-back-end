@@ -11,16 +11,14 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="funcoes")
+@Table(name="funcao")
 
-public class Funcoes {
+public class Funcao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
     private UUID id;
     private String nome;
-    @OneToOne // inserir o joincolum para relacionamento um pra um
-    private Usuario usuario;
 
 }
