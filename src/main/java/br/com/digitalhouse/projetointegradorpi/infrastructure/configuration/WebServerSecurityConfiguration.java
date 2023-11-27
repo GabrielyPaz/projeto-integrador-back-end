@@ -41,7 +41,8 @@ public class WebServerSecurityConfiguration {
                 .authorizeHttpRequests(request -> {
                             request.requestMatchers(
                                             antMatcher(HttpMethod.POST, "/usuarios/**"),
-                                            antMatcher("/v1/authentication/**"),
+                                            antMatcher(HttpMethod.POST, "/reservas/**"),
+                                            antMatcher("/authentication/**"),
                                             antMatcher("/swagger-ui/**"),
                                             antMatcher("/proxy/**"),
                                             antMatcher("/v3/api-docs/**"))
