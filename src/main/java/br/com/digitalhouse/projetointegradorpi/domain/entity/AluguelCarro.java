@@ -20,18 +20,18 @@ public class AluguelCarro {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name="carroPraAlugar_id",
-            foreignKey = @ForeignKey(name="fk_aluguel_carro"))
+    @JoinColumn(name = "carroPraAlugar_id",
+            foreignKey = @ForeignKey(name = "fk_aluguel_carro"))
     private Carro carroPraAlugar;
 
     @ManyToOne
-    @JoinColumn(name="cliente_id",
-            foreignKey = @ForeignKey(name="fk_cliente_carroAlugado"))
+    @JoinColumn(name = "cliente_id",
+            foreignKey = @ForeignKey(name = "fk_cliente_carroAlugado"))
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn(name="cidadeDeAluguel_id",
-            foreignKey = @ForeignKey(name="fk_cidade_carroAlugado"))
+    @JoinColumn(name = "cidadeDeAluguel_id",
+            foreignKey = @ForeignKey(name = "fk_cidade_carroAlugado"))
     private Cidade cidadeDeAluguel;
 
     private LocalDate dataAluguel;
@@ -47,6 +47,7 @@ public class AluguelCarro {
     public void noAluguel() {
         this.alugadoEm = LocalDateTime.now();
     }
+
     @PreUpdate
     public void naEntrega() {
         this.entregueEm = LocalDateTime.now();

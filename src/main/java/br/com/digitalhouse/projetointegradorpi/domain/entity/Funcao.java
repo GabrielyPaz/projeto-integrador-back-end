@@ -8,11 +8,9 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="funcao")
-
+@Table(name = "funcao")
 public class Funcao {
 
     @Id
@@ -21,4 +19,7 @@ public class Funcao {
     private UUID id;
     private String nome;
 
+    public Funcao(String nome) {
+        this.nome = nome;
+    }
 }

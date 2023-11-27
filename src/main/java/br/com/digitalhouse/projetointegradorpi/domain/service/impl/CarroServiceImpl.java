@@ -7,6 +7,7 @@ import br.com.digitalhouse.projetointegradorpi.domain.entity.Cidade;
 import br.com.digitalhouse.projetointegradorpi.domain.exceptions.CarNotFoundException;
 import br.com.digitalhouse.projetointegradorpi.domain.exceptions.CategoryNotFoundException;
 import br.com.digitalhouse.projetointegradorpi.domain.exceptions.CidadeNotFoundException;
+import br.com.digitalhouse.projetointegradorpi.domain.filter.FiltroCarro;
 import br.com.digitalhouse.projetointegradorpi.domain.repository.CaracteristicaRespository;
 import br.com.digitalhouse.projetointegradorpi.domain.repository.CarroRepository;
 import br.com.digitalhouse.projetointegradorpi.domain.repository.CategoriaRepository;
@@ -32,28 +33,31 @@ public class CarroServiceImpl implements CarroService {
 
     @Override
     public Carro criarCarro(Carro carro, UUID categoriaId, UUID cidadeId, Set<UUID> caracteristicaCarroId) {
-        Categoria categoria = categoriaRepository
-                .findById(categoriaId)
+        Categoria categoria = categoriaRepository.findById(categoriaId)
                 .orElseThrow(() -> new CategoryNotFoundException(categoriaId));
         carro.setCategoria(categoria);
-        Cidade cidade = cidadeRepository
-                .findById(cidadeId)
-                .orElseThrow(()->new CidadeNotFoundException(cidadeId));
+
+        Cidade cidade = cidadeRepository.findById(cidadeId)
+                .orElseThrow(() -> new CidadeNotFoundException(cidadeId));
         carro.setCidade(cidade);
+
         List<Caracteristica> caracteristicaList = caracteristicaRespository
                 .findAllById(caracteristicaCarroId);
         Set<Caracteristica> caracteristicaSet = new HashSet<>(caracteristicaList);
+
         carro.setCaracteristicasCarro(caracteristicaSet);
         return this.carroRepository.save(carro);
     }
 
     @Override
-    public Page<Carro> buscarCarros(Pageable page, String termo, String cidade) {
+    public Page<Carro> buscarCarros(Pageable page, FiltroCarro filtroCarro) {
+        String termo = filtroCarro.getTermo();
+        String cidade = filtroCarro.getCidade();
         return this.carroRepository.findAll((root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (termo != null && !termo.isBlank()) {
                 var searchTerm = "%" + termo + "%";
-                Predicate nome = criteriaBuilder.like(root.get("nome"), searchTerm);
+                Predicate nome = criteriaBuilder.like(root.get("modelo"), searchTerm);
                 predicates.add(nome);
             }
             if (cidade != null && !cidade.isBlank()) {
@@ -68,6 +72,6 @@ public class CarroServiceImpl implements CarroService {
     public Carro buscarCarroPorId(UUID id) {
         return this.carroRepository
                 .findById(id)
-                .orElseThrow(()-> new CarNotFoundException(id));
+                .orElseThrow(() -> new CarNotFoundException(id));
     }
 }

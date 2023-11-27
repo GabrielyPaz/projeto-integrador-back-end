@@ -28,14 +28,14 @@ public class CidadeController implements CidadeApi {
     public ResponseEntity<CidadeResponse> criarCidade(CidadeRequest request) {
         Cidade cidade = objectMapper.convertValue(request, Cidade.class);
         Cidade cidadeCriada = cidadeService.criarCidade(cidade);
-        CidadeResponse response = objectMapper.convertValue(cidadeCriada,CidadeResponse.class);
+        CidadeResponse response = objectMapper.convertValue(cidadeCriada, CidadeResponse.class);
         return ResponseEntity.ok(response);
     }
 
     @Override
     public ResponseEntity<Page<CidadeListResponse>> buscarCidades(Pageable page, String termo) {
-        Page<Cidade> cidades =  cidadeService.buscarCidades(page, termo);
-        Page<CidadeListResponse> map = cidades.map(cidade -> new CidadeListResponse(cidade.getId(),cidade.getNome(), cidade.getEstado()));
+        Page<Cidade> cidades = cidadeService.buscarCidades(page, termo);
+        Page<CidadeListResponse> map = cidades.map(cidade -> new CidadeListResponse(cidade.getId(), cidade.getNome(), cidade.getEstado()));
         return ResponseEntity.ok(map);
     }
 }

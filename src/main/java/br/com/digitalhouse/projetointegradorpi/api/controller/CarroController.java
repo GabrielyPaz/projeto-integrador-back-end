@@ -2,10 +2,10 @@ package br.com.digitalhouse.projetointegradorpi.api.controller;
 
 import br.com.digitalhouse.projetointegradorpi.api.CarroApi;
 import br.com.digitalhouse.projetointegradorpi.api.dto.request.CarroRequest;
-import br.com.digitalhouse.projetointegradorpi.api.dto.response.CidadeResponse;
 import br.com.digitalhouse.projetointegradorpi.api.dto.response.CarroResponse;
 import br.com.digitalhouse.projetointegradorpi.api.dto.response.listResponse.CarroListResponse;
 import br.com.digitalhouse.projetointegradorpi.domain.entity.Carro;
+import br.com.digitalhouse.projetointegradorpi.domain.filter.FiltroCarro;
 import br.com.digitalhouse.projetointegradorpi.domain.service.CarroService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +31,14 @@ public class CarroController implements CarroApi {
     @Override
     public ResponseEntity<CarroResponse> criarCarro(CarroRequest request) {
         Carro carro = objectMapper.convertValue(request, Carro.class);
-        Carro carroCriado = carroService.criarCarro(carro, request.getCategoriaId(), request.getCidadeId(), request.getCaracteristicaCarroId() );
+        Carro carroCriado = carroService.criarCarro(carro, request.getCategoriaId(), request.getCidadeId(), request.getCaracteristicaCarroId());
         CarroResponse response = objectMapper.convertValue(carroCriado, CarroResponse.class);
         return ResponseEntity.ok(response);
     }
 
     @Override
-    public ResponseEntity<Page<CarroListResponse>> buscarCarros(Pageable page, String termo, String cidade) {
-        Page<Carro>carros = carroService.buscarCarros(page,termo,cidade);
+    public ResponseEntity<Page<CarroListResponse>> buscarCarros(Pageable page, FiltroCarro filtroCarro) {
+        Page<Carro> carros = carroService.buscarCarros(page, filtroCarro);
         Page<CarroListResponse> map = carros.map(carro -> new CarroListResponse(carro.getId(), carro.getModelo(), carro.getDescricao()));
         return ResponseEntity.ok(map);
     }
@@ -50,11 +50,6 @@ public class CarroController implements CarroApi {
         return ResponseEntity.ok(response);
     }
 
-    // ------- Falta configurar este endpoint abaixo referente a busca de carros por cidade ou categoria -------
-//    @Override
-//    public ResponseEntity<CidadeResponse> buscarCarrosPorCidade() {
-//        return null;
-//    }
 
     private CarroResponse carroResponseByCarro(Carro carro) {
         return objectMapper.convertValue(carro, CarroResponse.class);

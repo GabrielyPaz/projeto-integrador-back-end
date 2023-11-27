@@ -16,22 +16,23 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="usuario")
+@Table(name = "usuario")
 public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id")
     private UUID id;
     private String nome;
     private String Sobrenome;
     private String email;
     private String senha;
     @ManyToOne
-    @JoinColumn(name = "id_funcao" , referencedColumnName = "id", foreignKey = @ForeignKey(name="fk_usuario_funcao"))
+    @JoinColumn(name = "id_funcao", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_usuario_funcao"))
     private Funcao funcao;
     @OneToMany
-    @JoinColumn(name = "id_reservas" , referencedColumnName = "id", foreignKey = @ForeignKey(name="fk_usuario_reservas"))
-    private List <Reserva> reservas;
+    @JoinColumn(name = "id_reservas", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_usuario_reservas"))
+    private List<Reserva> reservas;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -40,31 +41,31 @@ public class Usuario implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return getSenha();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return getEmail();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

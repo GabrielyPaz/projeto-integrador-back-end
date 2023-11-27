@@ -24,7 +24,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @ActiveProfiles("test-integration")
 @WebMvcTest(controllers = CarroApi.class)
@@ -58,7 +57,7 @@ public class CarroApiTest {
         Cidade cidade = new Cidade();
 
         Carro carro = new Carro(id, modelo, descricao, caracteristicas, fotoCarroEnum, categoria, cidade);
-        Mockito.when(carroService.criarCarro(Mockito.any(),Mockito.any(),Mockito.any(),Mockito.any())).thenReturn(carro);
+        Mockito.when(carroService.criarCarro(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(carro);
         mvc.perform(post("/carros")
                         .content(requestBody)
                         .contentType(MediaType
@@ -81,16 +80,16 @@ public class CarroApiTest {
     }
 
     @Test
-    void dadoUmCarro_quandoChamamosBuscarCarros_entaoRetornarCarrosinformados() throws Exception{
+    void dadoUmCarro_quandoChamamosBuscarCarros_entaoRetornarCarrosinformados() throws Exception {
         Set<Caracteristica> caracteristicas = Set.of(new Caracteristica());
         FotoCarroEnum fotoCarroEnum = FotoCarroEnum.SUV;
         Categoria categoria = new Categoria();
         Cidade cidade = new Cidade();
-        Carro carro = new Carro(UUID.randomUUID(),"Civic","sedan mais completo",caracteristicas, fotoCarroEnum, categoria,cidade);
+        Carro carro = new Carro(UUID.randomUUID(), "Civic", "sedan mais completo", caracteristicas, fotoCarroEnum, categoria, cidade);
 
         Page<Carro> pagina1 = new PageImpl<>(List.of(carro));
 
-        Mockito.when(carroService.buscarCarros(Mockito.any(),Mockito.any(),Mockito.any())).thenReturn(pagina1);
+        Mockito.when(carroService.buscarCarros( Mockito.any(), Mockito.any())).thenReturn(pagina1);
         mvc.perform(get("/carros")
                         .contentType(MediaType
                                 .APPLICATION_JSON_VALUE))

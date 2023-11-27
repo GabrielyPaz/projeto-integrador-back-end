@@ -1,13 +1,12 @@
 package br.com.digitalhouse.projetointegradorpi.domain.service;
 
 import br.com.digitalhouse.projetointegradorpi.domain.entity.Usuario;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.UUID;
 
-public interface UsuarioService {
+public interface AuthenticationService {
+    String login(String email, String senha);
 
-    UserDetailsService userDetailsService();
-
+    Usuario criarUsuario(Usuario usuario, String nomeFuncao);
 
 }

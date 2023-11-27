@@ -23,7 +23,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @ActiveProfiles("test-integration")
 @WebMvcTest(controllers = CidadeApi.class)
@@ -38,21 +37,20 @@ public class CidadeApiTest {
 
 
     @Test
-
-    void dadoUmaCidade_quandoChamamosCriarCidade_entaoRetornarCidadeCriada() throws Exception{
+    void dadoUmaCidade_quandoChamamosCriarCidade_entaoRetornarCidadeCriada() throws Exception {
         UUID id = UUID.randomUUID();
         String nome = "Rio de janeiro";
         String estado = "RJ";
 
-        CidadeRequest request = new CidadeRequest(nome,estado);
+        CidadeRequest request = new CidadeRequest(nome, estado);
         String requestBody = objectMapper.writeValueAsString(request);
 
-        Cidade cidade = new Cidade(id,nome,estado);
+        Cidade cidade = new Cidade(id, nome, estado);
 
         Mockito.when(cidadeService.criarCidade(Mockito.any())).thenReturn(cidade);
         mvc.perform(post("/cidades")
-                .content(requestBody)
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .content(requestBody)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
@@ -64,13 +62,13 @@ public class CidadeApiTest {
     }
 
     @Test
-    void dadoUmaCidade_quandoChamamosBuscarCidades_entaoRetornarCidadeCriada() throws Exception{
-        Cidade cidade = new Cidade(UUID.randomUUID(),"sao paulo","SP");
+    void dadoUmaCidade_quandoChamamosBuscarCidades_entaoRetornarCidadeCriada() throws Exception {
+        Cidade cidade = new Cidade(UUID.randomUUID(), "sao paulo", "SP");
         Page<Cidade> pagina1 = new PageImpl<>(List.of(cidade));
 
-        Mockito.when (cidadeService.buscarCidades(Mockito.any(),Mockito.any())).thenReturn(pagina1);
+        Mockito.when(cidadeService.buscarCidades(Mockito.any(), Mockito.any())).thenReturn(pagina1);
         mvc.perform(get("/cidades")
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
         ;
 

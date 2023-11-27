@@ -1,8 +1,5 @@
 package br.com.digitalhouse.projetointegradorpi.api.dto.response;
 
-import br.com.digitalhouse.projetointegradorpi.domain.entity.Caracteristica;
-import br.com.digitalhouse.projetointegradorpi.domain.entity.Categoria;
-import br.com.digitalhouse.projetointegradorpi.domain.entity.Cidade;
 import br.com.digitalhouse.projetointegradorpi.domain.entity.FotoCarroEnum;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,5 +18,5 @@ public class CarroResponse {
     private Set<CaracteristicaResponse> caracteristicasCarro;
     private FotoCarroEnum fotoCarro;
     private CategoriaResponse categoria;
-    private CidadeResponse cidade ;
+    private CidadeResponse cidade;
 }

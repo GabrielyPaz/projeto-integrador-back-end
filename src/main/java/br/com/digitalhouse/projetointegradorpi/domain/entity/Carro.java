@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="carros")
+@Table(name = "carros")
 public class Carro {
 
     @Id
@@ -22,9 +22,9 @@ public class Carro {
     private String modelo;
     private String descricao;
 
-    @ManyToMany (cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
-            name="caracteristicaCarro",
+            name = "caracteristicaCarro",
             joinColumns = @JoinColumn(name = "id_carro",
                     foreignKey = @ForeignKey(name = "fk_carro_categoria")),
             inverseJoinColumns = @JoinColumn(name = "id_caracteristica",
@@ -35,11 +35,11 @@ public class Carro {
     @Enumerated(EnumType.STRING) // revisao com gabriel no relacionamento
     private FotoCarroEnum fotoCarro;
 
-    @ManyToOne (cascade = CascadeType.PERSIST)
-    @JoinColumn(name="categoria_id", foreignKey = @ForeignKey(name="fk_carro_categoria"))
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "categoria_id", foreignKey = @ForeignKey(name = "fk_categoria_carro"))
     private Categoria categoria;
 
     @ManyToOne(cascade = CascadeType.PERSIST) // revisao com gabriel no relacionamento
-    @JoinColumn(name = "id_endereco" , referencedColumnName = "id", foreignKey = @ForeignKey(name="fk_carro_endereco"))
+    @JoinColumn(name = "id_endereco", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_carro_endereco"))
     private Cidade cidade;
 }

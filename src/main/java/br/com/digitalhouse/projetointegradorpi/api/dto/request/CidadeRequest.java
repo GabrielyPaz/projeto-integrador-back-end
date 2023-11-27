@@ -19,7 +19,7 @@ public class CidadeRequest {
     @Schema(example = "Niteroi")
     private String nome;
     @NotBlank
-    @Length (min = 2, max = 2)
+    @Length(min = 2, max = 2)
     @Schema(example = "RJ")
     private String estado;
 

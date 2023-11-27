@@ -4,7 +4,7 @@ public enum NomeCategoriaEnum {
     HATCH,
     SEDAN,
     SUV,
-    IMPORTADO;
+    IMPORTADO
 
 }
 

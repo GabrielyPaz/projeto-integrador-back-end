@@ -1,8 +1,5 @@
 package br.com.digitalhouse.projetointegradorpi.api.dto.request;
 
-import br.com.digitalhouse.projetointegradorpi.domain.entity.Caracteristica;
-import br.com.digitalhouse.projetointegradorpi.domain.entity.Categoria;
-import br.com.digitalhouse.projetointegradorpi.domain.entity.Cidade;
 import br.com.digitalhouse.projetointegradorpi.domain.entity.FotoCarroEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -18,7 +15,6 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class CarroRequest {
 
     @NotBlank

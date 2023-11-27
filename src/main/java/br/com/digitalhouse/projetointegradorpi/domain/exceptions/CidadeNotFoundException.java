@@ -4,6 +4,6 @@ import java.util.UUID;
 
 public class CidadeNotFoundException extends RuntimeException {
     public CidadeNotFoundException(UUID cidadeId) {
-        super ("Id da cidade não encontrado " + cidadeId);
+        super("Id da cidade não encontrado " + cidadeId);
     }
 }

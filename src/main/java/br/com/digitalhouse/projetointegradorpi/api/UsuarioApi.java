@@ -13,5 +13,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("usuarios")
 public interface UsuarioApi {
     @PostMapping
-    ResponseEntity<UsuarioResponse>CriarUsuario(@RequestBody @Valid UsuarioRequest request);
+    ResponseEntity<UsuarioResponse> criarUsuario(@RequestBody @Valid UsuarioRequest request);
 }

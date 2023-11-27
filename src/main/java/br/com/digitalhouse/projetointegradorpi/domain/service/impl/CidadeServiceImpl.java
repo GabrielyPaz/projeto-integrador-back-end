@@ -4,7 +4,6 @@ import br.com.digitalhouse.projetointegradorpi.domain.entity.Cidade;
 import br.com.digitalhouse.projetointegradorpi.domain.repository.CidadeRepository;
 import br.com.digitalhouse.projetointegradorpi.domain.service.CidadeService;
 import jakarta.persistence.criteria.Predicate;
-import org.hibernate.engine.spi.SessionDelegatorBaseImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
