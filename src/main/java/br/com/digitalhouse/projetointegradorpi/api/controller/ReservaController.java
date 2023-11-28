@@ -2,13 +2,10 @@ package br.com.digitalhouse.projetointegradorpi.api.controller;
 
 import br.com.digitalhouse.projetointegradorpi.api.ReservaApi;
 import br.com.digitalhouse.projetointegradorpi.api.dto.request.ReservaRequest;
-import br.com.digitalhouse.projetointegradorpi.api.dto.response.CarroResponse;
 import br.com.digitalhouse.projetointegradorpi.api.dto.response.ReservaResponse;
-import br.com.digitalhouse.projetointegradorpi.domain.entity.Carro;
 import br.com.digitalhouse.projetointegradorpi.domain.entity.Reserva;
 import br.com.digitalhouse.projetointegradorpi.domain.service.ReservaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;

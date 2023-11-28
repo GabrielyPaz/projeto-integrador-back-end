@@ -1,8 +1,8 @@
 package br.com.digitalhouse.projetointegradorpi.api;
 
-import br.com.digitalhouse.projetointegradorpi.api.dto.request.CarroRequest;
+import br.com.digitalhouse.projetointegradorpi.api.dto.request.VeiculoRequest;
 import br.com.digitalhouse.projetointegradorpi.domain.entity.*;
-import br.com.digitalhouse.projetointegradorpi.domain.service.CarroService;
+import br.com.digitalhouse.projetointegradorpi.domain.service.VeiculoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ActiveProfiles("test-integration")
 @WebMvcTest(controllers = CarroApi.class)
-public class CarroApiTest {
+public class VeiculoApiTest {
 
     @Autowired
     private MockMvc mvc;
@@ -36,7 +36,7 @@ public class CarroApiTest {
     private ObjectMapper objectMapper;
 
     @MockBean
-    private CarroService carroService;
+    private VeiculoService veiculoService;
 
     @Test
     void dadoUmCarro_quandoChamamosCriarCarro_entaoRetornarCarroCriado() throws Exception {
@@ -48,16 +48,17 @@ public class CarroApiTest {
         UUID categoriaId = UUID.randomUUID();
         UUID cidadeId = UUID.randomUUID();
 
-        CarroRequest request = new CarroRequest(modelo, descricao, caracteristicaIds, fotoCarroEnum, categoriaId, cidadeId);
+        VeiculoRequest request = new VeiculoRequest(modelo, descricao, caracteristicaIds, fotoCarroEnum, categoriaId, cidadeId);
 
         String requestBody = objectMapper.writeValueAsString(request);
 
         Set<Caracteristica> caracteristicas = Set.of(new Caracteristica());
         Categoria categoria = new Categoria();
         Cidade cidade = new Cidade();
+        List<Reserva> reservas = List.of(new Reserva());
 
-        Carro carro = new Carro(id, modelo, descricao, caracteristicas, fotoCarroEnum, categoria, cidade);
-        Mockito.when(carroService.criarCarro(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(carro);
+        Veiculo veiculo = new Veiculo(id, modelo, descricao, caracteristicas, fotoCarroEnum, categoria, cidade,reservas);
+        Mockito.when(veiculoService.criarCarro(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(veiculo);
         mvc.perform(post("/carros")
                         .content(requestBody)
                         .contentType(MediaType
@@ -85,11 +86,12 @@ public class CarroApiTest {
         FotoCarroEnum fotoCarroEnum = FotoCarroEnum.SUV;
         Categoria categoria = new Categoria();
         Cidade cidade = new Cidade();
-        Carro carro = new Carro(UUID.randomUUID(), "Civic", "sedan mais completo", caracteristicas, fotoCarroEnum, categoria, cidade);
+        List<Reserva> reservas = List.of(new Reserva());
+        Veiculo veiculo = new Veiculo(UUID.randomUUID(), "Civic", "sedan mais completo", caracteristicas, fotoCarroEnum, categoria, cidade, reservas);
 
-        Page<Carro> pagina1 = new PageImpl<>(List.of(carro));
+        Page<Veiculo> pagina1 = new PageImpl<>(List.of(veiculo));
 
-        Mockito.when(carroService.buscarCarros( Mockito.any(), Mockito.any())).thenReturn(pagina1);
+        Mockito.when(veiculoService.buscarCarros( Mockito.any(), Mockito.any())).thenReturn(pagina1);
         mvc.perform(get("/carros")
                         .contentType(MediaType
                                 .APPLICATION_JSON_VALUE))

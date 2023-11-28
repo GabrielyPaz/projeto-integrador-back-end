@@ -25,7 +25,7 @@ public class Reserva {
     private LocalDateTime dataFinal;
     @ManyToOne
     @JoinColumn(name = "id_carro", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_reserva_carro"))
-    private Carro carro;
+    private Veiculo veiculo;
     @ManyToOne
     @JoinColumn(name = "id_usuario", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_reserva_usuario"))
     private Usuario usuario;

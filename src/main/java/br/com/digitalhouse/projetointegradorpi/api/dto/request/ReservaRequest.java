@@ -21,11 +21,11 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ReservaRequest {
     @NotNull
-    @JsonFormat(shape = JsonFormat.Shape.ANY, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "GMT")
+    @JsonFormat(shape = JsonFormat.Shape.ANY, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
     @Schema(example = "2023-11-28T08:00:00.000Z")
     private LocalDateTime dataInicial;
     @NotNull
-    @JsonFormat(shape = JsonFormat.Shape.ANY, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "GMT")
+    @JsonFormat(shape = JsonFormat.Shape.ANY, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
     @Schema(example = "2023-11-30T08:00:00.000Z")
     private LocalDateTime dataFinal;
     @NotNull

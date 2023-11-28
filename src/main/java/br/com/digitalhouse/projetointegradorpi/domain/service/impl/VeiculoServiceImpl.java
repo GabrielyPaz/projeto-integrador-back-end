@@ -1,59 +1,64 @@
 package br.com.digitalhouse.projetointegradorpi.domain.service.impl;
 
 import br.com.digitalhouse.projetointegradorpi.domain.entity.Caracteristica;
-import br.com.digitalhouse.projetointegradorpi.domain.entity.Carro;
+import br.com.digitalhouse.projetointegradorpi.domain.entity.Veiculo;
 import br.com.digitalhouse.projetointegradorpi.domain.entity.Categoria;
 import br.com.digitalhouse.projetointegradorpi.domain.entity.Cidade;
 import br.com.digitalhouse.projetointegradorpi.domain.exceptions.CarNotFoundException;
 import br.com.digitalhouse.projetointegradorpi.domain.exceptions.CategoryNotFoundException;
 import br.com.digitalhouse.projetointegradorpi.domain.exceptions.CidadeNotFoundException;
-import br.com.digitalhouse.projetointegradorpi.domain.filter.FiltroCarro;
+import br.com.digitalhouse.projetointegradorpi.domain.filter.FiltroVeiculo;
 import br.com.digitalhouse.projetointegradorpi.domain.repository.CaracteristicaRespository;
-import br.com.digitalhouse.projetointegradorpi.domain.repository.CarroRepository;
+import br.com.digitalhouse.projetointegradorpi.domain.repository.VeiculoRepository;
 import br.com.digitalhouse.projetointegradorpi.domain.repository.CategoriaRepository;
 import br.com.digitalhouse.projetointegradorpi.domain.repository.CidadeRepository;
-import br.com.digitalhouse.projetointegradorpi.domain.service.CarroService;
+import br.com.digitalhouse.projetointegradorpi.domain.service.VeiculoService;
 import jakarta.persistence.criteria.Predicate;
 import lombok.AllArgsConstructor;
+import org.hibernate.persister.collection.mutation.RowMutationOperations;
+import org.hibernate.sql.Restriction;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
 
 @AllArgsConstructor
-public class CarroServiceImpl implements CarroService {
+public class VeiculoServiceImpl implements VeiculoService {
 
-    private final CarroRepository carroRepository;
+    private final VeiculoRepository veiculoRepository;
     private final CategoriaRepository categoriaRepository;
     private final CidadeRepository cidadeRepository;
     private final CaracteristicaRespository caracteristicaRespository;
 
     @Override
-    public Carro criarCarro(Carro carro, UUID categoriaId, UUID cidadeId, Set<UUID> caracteristicaCarroId) {
+    public Veiculo criarCarro(Veiculo veiculo, UUID categoriaId, UUID cidadeId, Set<UUID> caracteristicaCarroId) {
         Categoria categoria = categoriaRepository.findById(categoriaId)
                 .orElseThrow(() -> new CategoryNotFoundException(categoriaId));
-        carro.setCategoria(categoria);
+        veiculo.setCategoria(categoria);
 
         Cidade cidade = cidadeRepository.findById(cidadeId)
                 .orElseThrow(() -> new CidadeNotFoundException(cidadeId));
-        carro.setCidade(cidade);
+        veiculo.setCidade(cidade);
 
         List<Caracteristica> caracteristicaList = caracteristicaRespository
                 .findAllById(caracteristicaCarroId);
         Set<Caracteristica> caracteristicaSet = new HashSet<>(caracteristicaList);
 
-        carro.setCaracteristicasCarro(caracteristicaSet);
-        return this.carroRepository.save(carro);
+        veiculo.setCaracteristicasCarro(caracteristicaSet);
+        return this.veiculoRepository.save(veiculo);
     }
 
     @Override
-    public Page<Carro> buscarCarros(Pageable page, FiltroCarro filtroCarro) {
-        String termo = filtroCarro.getTermo();
-        String cidade = filtroCarro.getCidade();
-        return this.carroRepository.findAll((root, query, criteriaBuilder) -> {
+    public Page<Veiculo> buscarCarros(Pageable page, FiltroVeiculo filtroVeiculo) {
+        String termo = filtroVeiculo.getTermo();
+        String cidade = filtroVeiculo.getCidade();
+        LocalDateTime dataInicial = filtroVeiculo.getDataInicial();
+        LocalDateTime dataFinal = filtroVeiculo.getDataFinal();
+        return this.veiculoRepository.findAll((root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (termo != null && !termo.isBlank()) {
                 var searchTerm = "%" + termo + "%";
@@ -64,13 +69,23 @@ public class CarroServiceImpl implements CarroService {
                 Predicate nome = criteriaBuilder.like(root.get("cidade").get("nome"), cidade);
                 predicates.add(nome);
             }
+            if (dataInicial != null && dataFinal != null){
+
+                Predicate predicateInicio = criteriaBuilder.greaterThanOrEqualTo(root.get("reservas").get("dataInicial"), dataInicial);
+                Predicate predicateFim = criteriaBuilder.lessThanOrEqualTo(root.get("reservas").get("dataFinal"), dataFinal);
+
+                Predicate predicateReserva = criteriaBuilder.isNull(root.get("reserva"));
+                predicates.add(predicateInicio);
+                predicates.add(predicateFim);
+                predicates.add(predicateReserva);
+            }
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         }, page);
     }
 
     @Override
-    public Carro buscarCarroPorId(UUID id) {
-        return this.carroRepository
+    public Veiculo buscarCarroPorId(UUID id) {
+        return this.veiculoRepository
                 .findById(id)
                 .orElseThrow(() -> new CarNotFoundException(id));
     }

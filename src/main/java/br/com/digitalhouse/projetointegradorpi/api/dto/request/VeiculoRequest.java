@@ -15,7 +15,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CarroRequest {
+public class VeiculoRequest {
 
     @NotBlank
     @Schema(example = "Corolla")

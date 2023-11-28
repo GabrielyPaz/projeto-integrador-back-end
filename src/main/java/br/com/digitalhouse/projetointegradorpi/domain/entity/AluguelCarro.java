@@ -22,7 +22,7 @@ public class AluguelCarro {
     @ManyToOne
     @JoinColumn(name = "carroPraAlugar_id",
             foreignKey = @ForeignKey(name = "fk_aluguel_carro"))
-    private Carro carroPraAlugar;
+    private Veiculo veiculoPraAlugar;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id",
