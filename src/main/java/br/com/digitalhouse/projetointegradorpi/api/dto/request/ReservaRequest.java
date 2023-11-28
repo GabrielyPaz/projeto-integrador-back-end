@@ -8,7 +8,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Getter
@@ -17,12 +21,12 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ReservaRequest {
     @NotNull
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    @Schema(example = "27/04/2023 08:00")
+    @JsonFormat(shape = JsonFormat.Shape.ANY, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "GMT")
+    @Schema(example = "2023-11-28T08:00:00.000Z")
     private LocalDateTime dataInicial;
     @NotNull
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    @Schema(example = "22/04/2023 08:00")
+    @JsonFormat(shape = JsonFormat.Shape.ANY, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "GMT")
+    @Schema(example = "2023-11-30T08:00:00.000Z")
     private LocalDateTime dataFinal;
     @NotNull
     private UUID carroId;
