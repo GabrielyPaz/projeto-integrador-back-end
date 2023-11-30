@@ -1,5 +1,6 @@
 package br.com.digitalhouse.projetointegradorpi.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -45,6 +46,7 @@ public class Veiculo {
     private Cidade cidade;
 
     @OneToMany
-    @JoinColumn(name = "id_reservas", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_veiculo_reservas"))
+    @JsonBackReference
+    @JoinColumn(name = "id_carro", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_veiculo_reservas"))
     private List<Reserva> reservas;
 }

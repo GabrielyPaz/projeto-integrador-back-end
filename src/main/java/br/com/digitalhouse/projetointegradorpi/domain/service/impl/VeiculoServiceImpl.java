@@ -1,9 +1,6 @@
 package br.com.digitalhouse.projetointegradorpi.domain.service.impl;
 
-import br.com.digitalhouse.projetointegradorpi.domain.entity.Caracteristica;
-import br.com.digitalhouse.projetointegradorpi.domain.entity.Veiculo;
-import br.com.digitalhouse.projetointegradorpi.domain.entity.Categoria;
-import br.com.digitalhouse.projetointegradorpi.domain.entity.Cidade;
+import br.com.digitalhouse.projetointegradorpi.domain.entity.*;
 import br.com.digitalhouse.projetointegradorpi.domain.exceptions.CarNotFoundException;
 import br.com.digitalhouse.projetointegradorpi.domain.exceptions.CategoryNotFoundException;
 import br.com.digitalhouse.projetointegradorpi.domain.exceptions.CidadeNotFoundException;
@@ -14,6 +11,8 @@ import br.com.digitalhouse.projetointegradorpi.domain.repository.CategoriaReposi
 import br.com.digitalhouse.projetointegradorpi.domain.repository.CidadeRepository;
 import br.com.digitalhouse.projetointegradorpi.domain.service.VeiculoService;
 import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Subquery;
 import lombok.AllArgsConstructor;
 import org.hibernate.persister.collection.mutation.RowMutationOperations;
 import org.hibernate.sql.Restriction;
@@ -69,15 +68,16 @@ public class VeiculoServiceImpl implements VeiculoService {
                 Predicate nome = criteriaBuilder.like(root.get("cidade").get("nome"), cidade);
                 predicates.add(nome);
             }
-            if (dataInicial != null && dataFinal != null){
+            if (dataInicial != null && dataFinal != null) {
+                Subquery<Reserva> subquery = query.subquery(Reserva.class);
+                Root<Reserva> reservaRoot = subquery.from(Reserva.class);
 
-                Predicate predicateInicio = criteriaBuilder.greaterThanOrEqualTo(root.get("reservas").get("dataInicial"), dataInicial);
-                Predicate predicateFim = criteriaBuilder.lessThanOrEqualTo(root.get("reservas").get("dataFinal"), dataFinal);
+                subquery.select(reservaRoot)
+                        .where(criteriaBuilder.equal(reservaRoot.get("veiculo"), root),
+                                criteriaBuilder.lessThanOrEqualTo(reservaRoot.get("dataInicial"), dataFinal),
+                                criteriaBuilder.greaterThanOrEqualTo(reservaRoot.get("dataFinal"), dataInicial));
 
-                Predicate predicateReserva = criteriaBuilder.isNull(root.get("reserva"));
-                predicates.add(predicateInicio);
-                predicates.add(predicateFim);
-                predicates.add(predicateReserva);
+                predicates.add(criteriaBuilder.not(criteriaBuilder.exists(subquery)));
             }
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         }, page);

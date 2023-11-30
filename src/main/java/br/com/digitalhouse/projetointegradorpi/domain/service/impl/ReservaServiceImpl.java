@@ -9,11 +9,14 @@ import br.com.digitalhouse.projetointegradorpi.domain.repository.UsuarioReposito
 import br.com.digitalhouse.projetointegradorpi.domain.service.ReservaService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class ReservaServiceImpl  implements ReservaService {
+public class ReservaServiceImpl implements ReservaService {
 
     private final ReservaRepository reservaRepository;
     private final VeiculoRepository veiculoRepository;
@@ -21,13 +24,24 @@ public class ReservaServiceImpl  implements ReservaService {
 
     @Override
     public Reserva criarNovaReserva(Reserva reserva, UUID carroId, UUID usuarioId) {
+        boolean reservaJaExiste = reservaRepository.existsReservaByDataFinalLessThanEqualAndAndDataInicialGreaterThanEqualAndVeiculoIdIs(
+                reserva.getDataFinal(),
+                reserva.getDataInicial(),
+                carroId);
+
+        if (reservaJaExiste) {
+            throw new RuntimeException("Reserva ja existe");
+        }
+
         Veiculo veiculo = veiculoRepository.findById(carroId)
                 .orElseThrow(() -> new CarNotFoundException(carroId));
         reserva.setVeiculo(veiculo);
+        veiculo.setReservas(List.of(reserva));
 
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new UserNotFoundException(usuarioId));
         reserva.setUsuario(usuario);
+
 
         return this.reservaRepository.save(reserva);
     }

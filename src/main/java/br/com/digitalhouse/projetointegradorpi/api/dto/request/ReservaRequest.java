@@ -3,6 +3,8 @@ package br.com.digitalhouse.projetointegradorpi.api.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,12 +23,14 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ReservaRequest {
     @NotNull
-    @JsonFormat(shape = JsonFormat.Shape.ANY, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
-    @Schema(example = "2023-11-28T08:00:00.000Z")
+//    @FutureOrPresent
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+//    @Schema(example = "2023/11/28 08:00")
     private LocalDateTime dataInicial;
     @NotNull
-    @JsonFormat(shape = JsonFormat.Shape.ANY, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
-    @Schema(example = "2023-11-30T08:00:00.000Z")
+//    @Future
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+//    @Schema(example = "2023/11/30 08:00")
     private LocalDateTime dataFinal;
     @NotNull
     private UUID carroId;

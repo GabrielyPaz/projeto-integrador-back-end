@@ -1,6 +1,9 @@
 package br.com.digitalhouse.projetointegradorpi.domain.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,7 +24,9 @@ public class Reserva {
     @Column(name = "id")
     private UUID id;
     //    private LocalTime horaInicial;       //substituimos isso pelo localdatetime
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataInicial;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataFinal;
     @ManyToOne
     @JoinColumn(name = "id_carro", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_reserva_carro"))
