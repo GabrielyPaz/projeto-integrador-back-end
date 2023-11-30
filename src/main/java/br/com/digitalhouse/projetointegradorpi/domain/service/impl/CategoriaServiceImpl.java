@@ -33,11 +33,11 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     @Override
     public Categoria atualizarCategoria(UUID id, Categoria categoria) {
-        Categoria categoriaAtual = this.categoriaRepository.findById(id).orElseThrow(() ->new CategoryNotFoundException(id));
+        Categoria categoriaAtual = this.categoriaRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException(id));
 
         categoriaAtual.setDescricao(categoria.getDescricao());
         categoriaAtual.setQualificacao(categoria.getQualificacao());
-        categoriaAtual.setUrlImagem(categoria.getUrlImagem());
+        //categoriaAtual.setUrlImagem(categoria.getUrlImagem());
 
         return categoriaRepository.save(categoriaAtual);
     }
@@ -59,14 +59,14 @@ public class CategoriaServiceImpl implements CategoriaService {
     public Categoria buscarCategoriaPorId(UUID id) {
         return this.categoriaRepository
                 .findById(id)
-                .orElseThrow(()-> new CategoryNotFoundException(id));
+                .orElseThrow(() -> new CategoryNotFoundException(id));
     }
 
     @Override
     public void deletarCategoria(UUID id) {
         Categoria categoria = categoriaRepository
                 .findById(id)
-                .orElseThrow(()-> new CategoryNotFoundException(id));
+                .orElseThrow(() -> new CategoryNotFoundException(id));
         categoriaRepository.delete(categoria);
     }
 }
