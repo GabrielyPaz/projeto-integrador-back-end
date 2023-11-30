@@ -1,6 +1,8 @@
 package br.com.digitalhouse.projetointegradorpi.infrastructure.configuration;
 
+import br.com.digitalhouse.projetointegradorpi.domain.exceptions.ExpiredException;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,7 +35,12 @@ public class JwtUtil {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+        try{
+            return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+
+        } catch (ExpiredJwtException e) {
+            throw new ExpiredException();
+        }
     }
 
     public String generateToken(UserDetails userDetails) {

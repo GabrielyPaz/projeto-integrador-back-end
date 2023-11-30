@@ -23,12 +23,12 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ReservaRequest {
     @NotNull
-//    @FutureOrPresent
+    @FutureOrPresent
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 //    @Schema(example = "2023/11/28 08:00")
     private LocalDateTime dataInicial;
     @NotNull
-//    @Future
+    @Future
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 //    @Schema(example = "2023/11/30 08:00")
     private LocalDateTime dataFinal;

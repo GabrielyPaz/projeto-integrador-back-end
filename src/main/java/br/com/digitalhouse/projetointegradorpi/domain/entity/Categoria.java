@@ -18,12 +18,13 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
     @Column(length = 100)
-    private String nome; // pensei do nome ser um enum (ANDRÉ)
+    private String nome;
+
     @Column(length = 100)
     private String qualificacao;
     private String descricao;
-
 
 //    @Column(columnDefinition = "text")
 //    private String urlImagem;

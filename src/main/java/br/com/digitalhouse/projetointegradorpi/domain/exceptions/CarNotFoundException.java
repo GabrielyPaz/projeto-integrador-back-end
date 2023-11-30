@@ -4,6 +4,6 @@ import java.util.UUID;
 
 public class CarNotFoundException extends RuntimeException {
     public CarNotFoundException(UUID id) {
-        super("Id do carro não encontrado " + id);
+        super("Id do carro não encontrado " + id, null, true, false);
     }
 }
