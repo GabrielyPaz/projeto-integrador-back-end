@@ -42,6 +42,7 @@ public class WebServerSecurityConfiguration {
                             request.requestMatchers(
                                             antMatcher(HttpMethod.POST, "/usuarios/**"),
                                             antMatcher("/authentication/**"),
+                                            antMatcher("/actuator/**"),
                                             antMatcher("/swagger-ui/**"),
                                             antMatcher("/proxy/**"),
                                             antMatcher("/v3/api-docs/**"))
