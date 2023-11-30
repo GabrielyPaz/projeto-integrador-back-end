@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.digitalhouse</groupId>
-	<artifactId>projeto-integrador-pi</artifactId>
-	<version>0.0.1</version>
-	<name>projeto-integrador-pi</name>
-	<description>projeto-integrador-pi</description>
+	<artifactId>projeto-integrador</artifactId>
+	<version>0.1.0</version>
+	<name>projeto-integrador</name>
+	<description>projeto-integrador</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
