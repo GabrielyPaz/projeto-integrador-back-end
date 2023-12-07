@@ -26,8 +26,8 @@ public class Categoria {
     private String qualificacao;
     private String descricao;
 
-//    @Column(columnDefinition = "text")
-//    private String urlImagem;
+    @Column(columnDefinition = "text")
+    private String urlImagem;
 ////     Importei classe Enum
 //    private IconeUrlEnum iconeUrl;
 

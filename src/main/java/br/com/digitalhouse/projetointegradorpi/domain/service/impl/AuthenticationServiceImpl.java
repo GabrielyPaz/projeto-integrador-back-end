@@ -39,8 +39,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public Usuario criarUsuario(Usuario usuario, String nomeFuncao) {
         usuarioRepository.findByEmail(usuario.getEmail())
-                .ifPresent(usuarioExistente ->
-                {throw new UserAlreadyExistsException(usuario.getEmail());});
+                .ifPresent(usuarioExistente -> {
+                    throw new UserAlreadyExistsException(usuario.getEmail());
+                });
         Funcao funcao = funcaoRepository.findFuncaoByNome(nomeFuncao)
                 .orElse(funcaoRepository.save(new Funcao(nomeFuncao)));
         usuario.setFuncao(funcao);

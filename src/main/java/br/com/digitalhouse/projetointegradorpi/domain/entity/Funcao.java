@@ -3,6 +3,7 @@ package br.com.digitalhouse.projetointegradorpi.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -21,5 +22,18 @@ public class Funcao {
 
     public Funcao(String nome) {
         this.nome = nome;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Funcao funcao = (Funcao) o;
+        return Objects.equals(getNome(), funcao.getNome());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNome());
     }
 }

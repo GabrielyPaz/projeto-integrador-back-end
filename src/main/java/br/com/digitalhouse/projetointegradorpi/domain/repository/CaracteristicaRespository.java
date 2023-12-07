@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface CaracteristicaRespository extends JpaSpecificationExecutor<Veiculo>, JpaRepository<Caracteristica, UUID> {
+public interface CaracteristicaRespository extends JpaSpecificationExecutor<Caracteristica>, JpaRepository<Caracteristica, UUID> {
 
 
 }

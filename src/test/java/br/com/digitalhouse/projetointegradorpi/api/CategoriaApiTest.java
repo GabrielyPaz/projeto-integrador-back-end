@@ -48,7 +48,7 @@ class CategoriaApiTest {
         CategoriaRequest request = new CategoriaRequest(nome, qualificacao, descricao, urlImagem);
         String requestBody = objectMapper.writeValueAsString(request);
 
-        Categoria categoria = new Categoria(id, nome, qualificacao, descricao);
+        Categoria categoria = new Categoria(id, nome, qualificacao, descricao, urlImagem);
 
         Mockito.when(categoriaService.criarCategoria(Mockito.any())).thenReturn(categoria);
         mvc.perform(post("/categorias")
@@ -68,7 +68,7 @@ class CategoriaApiTest {
 
 //    @Test
     void dadoUmaCategoria_quandoChamamosBuscarCategoria_entaoRetornarCategoriaindicada() throws Exception {
-        Categoria categoria = new Categoria(UUID.randomUUID(), "grupo C", "5 estrelas", "economico com ar");
+        Categoria categoria = new Categoria(UUID.randomUUID(), "grupo C", "5 estrelas", "economico com ar","https://s2-autoesporte.glbimg.com/8Aj1zuuhIGdbTnAWKGOjFLfG38U=/0x0:620x413/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_cf9d035bf26b4646b105bd958f32089d/internal_photos/bs/2020/a/2/Yqpj2KQ9AmO1jHJgO4wA/2019-10-01-ar-10.jpg");
 
         Page<Categoria> pagina1 = new PageImpl<>(List.of(categoria));
 
