@@ -26,12 +26,12 @@ public class AluguelCarro {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id",
-            foreignKey = @ForeignKey(name = "fk_cliente_carroAlugado"))
+            foreignKey = @ForeignKey(name = "fk_cliente_carro_alugado"))
     private Cliente cliente;
 
     @ManyToOne
     @JoinColumn(name = "cidadeDeAluguel_id",
-            foreignKey = @ForeignKey(name = "fk_cidade_carroAlugado"))
+            foreignKey = @ForeignKey(name = "fk_cidade_carro_alugado"))
     private Cidade cidadeDeAluguel;
 
     private LocalDate dataAluguel;
