@@ -41,6 +41,10 @@ public class WebServerSecurityConfiguration {
                 .authorizeHttpRequests(request -> {
                             request.requestMatchers(
                                             antMatcher(HttpMethod.POST, "/usuarios/**"),
+                                            antMatcher(HttpMethod.GET, "/carros/**"),
+                                            antMatcher(HttpMethod.GET, "/categorias/**"),
+                                            antMatcher(HttpMethod.GET, "/cidades/**"),
+                                            antMatcher(HttpMethod.GET, "/caracteristicas/**"),
                                             antMatcher("/authentication/**"),
                                             antMatcher("/actuator/**"),
                                             antMatcher("/swagger-ui/**"),

@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -66,6 +67,20 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
 
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<Object> handleBadCredentials(BadCredentialsException ex, WebRequest request) {
+        HttpStatusCode status = HttpStatus.BAD_REQUEST;
+        ProblemType problemType = ProblemType.INVALID_PARAMETER;
+
+        log.error(ex.getMessage(), ex);
+
+        Problem problem = createProblemBuilder(status, problemType, ex.getMessage())
+                .userMessage("Usuario ou senha invalido(s), valide as credenciais e tente novamente!")
+                .build();
+
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+    }
+
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<Object> userNotFoundHandler(UserNotFoundException ex, WebRequest request) {
         HttpStatusCode status = HttpStatus.NOT_FOUND;
@@ -78,7 +93,9 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
                 .build();
 
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
-    }@ExceptionHandler(UserAlreadyExistsException.class)
+    }
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<Object> userAlreadyExistHandler(UserAlreadyExistsException ex, WebRequest request) {
         HttpStatusCode status = HttpStatus.BAD_REQUEST;
         ProblemType problemType = ProblemType.INVALID_DATA;
