@@ -45,6 +45,12 @@ public class ReservaController implements ReservaApi {
         return ResponseEntity.ok(response);
     }
 
+    @Override
+    public ResponseEntity<Void> deletarReserva(UUID id) {
+        reservaService.deletarReserva(id);
+        return ResponseEntity.ok().build();
+    }
+
     private ReservaResponse reservaResponseByReserva(Reserva reserva) {
         return reservaMapper.reservaParaReservaResponse(reserva);
     }

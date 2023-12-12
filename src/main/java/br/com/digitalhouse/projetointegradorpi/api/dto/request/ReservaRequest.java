@@ -25,12 +25,12 @@ public class ReservaRequest {
     @NotNull
     @FutureOrPresent
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-//    @Schema(example = "2023/11/28 08:00")
+    @Schema(example = "20/12/2023 08:00")
     private LocalDateTime dataInicial;
     @NotNull
     @Future
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-//    @Schema(example = "2023/11/30 08:00")
+    @Schema(example = "25/12/2023 08:00")
     private LocalDateTime dataFinal;
     @NotNull
     private UUID carroId;

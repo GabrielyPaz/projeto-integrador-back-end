@@ -2,6 +2,8 @@ package br.com.digitalhouse.projetointegradorpi.domain.service.impl;
 
 import br.com.digitalhouse.projetointegradorpi.domain.entity.*;
 import br.com.digitalhouse.projetointegradorpi.domain.exceptions.CarNotFoundException;
+import br.com.digitalhouse.projetointegradorpi.domain.exceptions.CategoryNotFoundException;
+import br.com.digitalhouse.projetointegradorpi.domain.exceptions.ReservaNotFoundException;
 import br.com.digitalhouse.projetointegradorpi.domain.exceptions.UserNotFoundException;
 import br.com.digitalhouse.projetointegradorpi.domain.repository.VeiculoRepository;
 import br.com.digitalhouse.projetointegradorpi.domain.repository.ReservaRepository;
@@ -51,5 +53,13 @@ public class ReservaServiceImpl implements ReservaService {
         return this.reservaRepository
                 .findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    @Override
+    public void deletarReserva(UUID id) {
+        Reserva reserva = reservaRepository
+                .findById(id)
+                .orElseThrow(() -> new ReservaNotFoundException(id));
+        reservaRepository.delete(reserva);
     }
 }

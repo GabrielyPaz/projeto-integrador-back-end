@@ -9,10 +9,14 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@JsonPropertyOrder({"id", "nome", "email"})
+@JsonPropertyOrder({"id", "nome", "sobrenome", "email", "senha", "funcao"})
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UsuarioResponse {
+public class CreateUsuarioResponse {
+
     private UUID id;
     private String nome;
+    private String Sobrenome;
     private String email;
+    private FuncaoResponse funcao;
+    private String jwt;
 }

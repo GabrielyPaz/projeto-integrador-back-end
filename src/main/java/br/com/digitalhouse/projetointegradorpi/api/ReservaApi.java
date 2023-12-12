@@ -19,4 +19,10 @@ public interface ReservaApi {
 
     @GetMapping("{id}")
     ResponseEntity<ReservaResponse> consultarReservaPorId(@PathVariable UUID id);
+
+    @DeleteMapping("{id}")
+    ResponseEntity<Void> deletarReserva(@PathVariable UUID id);
+
+
+
 }

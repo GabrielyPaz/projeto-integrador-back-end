@@ -10,4 +10,7 @@ public interface ReservaService {
 
     Reserva consultarReservaPorId(UUID id);
 
+    void deletarReserva(UUID id);
 }
+
+
