@@ -49,6 +49,7 @@ public class WebServerSecurityConfiguration {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> {
                             request.requestMatchers(
+                                            antMatcher(HttpMethod.OPTIONS),
                                             antMatcher(HttpMethod.POST, "/usuarios/**"),
                                             antMatcher(HttpMethod.GET, "/carros/**"),
                                             antMatcher(HttpMethod.GET, "/categorias/**"),
