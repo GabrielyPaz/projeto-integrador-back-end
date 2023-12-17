@@ -37,7 +37,7 @@ public class UsuarioController implements UsuarioApi {
     @Override
     public ResponseEntity<CreateUsuarioResponse> criarUsuario(UsuarioRequest request) {
         Usuario usuario = objectMapper.convertValue(request, Usuario.class);
-        Usuario usuarioCriado = authenticationService.criarUsuario(usuario/*, request.getNomeFuncao()*/);
+        Usuario usuarioCriado = authenticationService.criarUsuario(usuario, request.getNomeFuncao());
         CreateUsuarioResponse response = objectMapper.convertValue(usuarioCriado, CreateUsuarioResponse.class);
         String token = jwtService.gerandoToken(usuarioCriado);
         response.setJwt(token);

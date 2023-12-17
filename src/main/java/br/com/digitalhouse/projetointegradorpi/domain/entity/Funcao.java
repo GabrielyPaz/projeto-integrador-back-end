@@ -27,7 +27,7 @@ public class Funcao {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Funcao funcao = (Funcao) o;
         return Objects.equals(getNome(), funcao.getNome());
     }
