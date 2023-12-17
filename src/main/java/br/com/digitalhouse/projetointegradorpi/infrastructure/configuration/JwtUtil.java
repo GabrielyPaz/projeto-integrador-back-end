@@ -1,5 +1,6 @@
 package br.com.digitalhouse.projetointegradorpi.infrastructure.configuration;
 
+import br.com.digitalhouse.projetointegradorpi.domain.entity.Usuario;
 import br.com.digitalhouse.projetointegradorpi.domain.exceptions.ExpiredException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -44,7 +45,13 @@ public class JwtUtil {
     }
 
     public String generateToken(UserDetails userDetails) {
+        Usuario usuario = (Usuario) userDetails;
         Map<String, Object> claims = new HashMap<>();
+        claims.put("id", usuario.getId());
+        claims.put("nome", usuario.getNome());
+        claims.put("sobrenome", usuario.getSobrenome());
+        claims.put("funcao", usuario.getFuncao());
+
         return createToken(claims, userDetails.getUsername());
     }
 

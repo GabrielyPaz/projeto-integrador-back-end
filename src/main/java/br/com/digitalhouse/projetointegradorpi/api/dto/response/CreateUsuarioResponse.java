@@ -15,7 +15,7 @@ public class CreateUsuarioResponse {
 
     private UUID id;
     private String nome;
-    private String Sobrenome;
+    private String sobrenome;
     private String email;
     private FuncaoResponse funcao;
     private String jwt;

@@ -24,7 +24,7 @@ public class Usuario implements UserDetails {
     @Column(name = "id")
     private UUID id;
     private String nome;
-    private String Sobrenome;
+    private String sobrenome;
     private String email;
     private String senha;
     @ManyToOne
