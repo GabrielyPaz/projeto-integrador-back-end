@@ -23,21 +23,17 @@ public class Funcao {
     public Funcao(String nome) {
         this.nome = nome;
     }
-/*
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) return true;
         Funcao funcao = (Funcao) o;
         return Objects.equals(getNome(), funcao.getNome());
     }
-    */
 
-/*
     @Override
     public int hashCode() {
         return Objects.hash(getNome());
     }
-
- */
 }
