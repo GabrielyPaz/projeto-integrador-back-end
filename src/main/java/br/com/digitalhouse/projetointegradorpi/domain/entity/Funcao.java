@@ -23,7 +23,7 @@ public class Funcao {
     public Funcao(String nome) {
         this.nome = nome;
     }
-
+/*
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -31,6 +31,8 @@ public class Funcao {
         Funcao funcao = (Funcao) o;
         return Objects.equals(getNome(), funcao.getNome());
     }
+    */
+
 
     @Override
     public int hashCode() {
