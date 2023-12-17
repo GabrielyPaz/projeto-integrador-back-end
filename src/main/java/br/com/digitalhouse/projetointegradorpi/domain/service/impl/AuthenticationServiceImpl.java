@@ -1,6 +1,6 @@
 package br.com.digitalhouse.projetointegradorpi.domain.service.impl;
 
-import br.com.digitalhouse.projetointegradorpi.domain.entity.Funcao;
+//import br.com.digitalhouse.projetointegradorpi.domain.entity.Funcao;
 import br.com.digitalhouse.projetointegradorpi.domain.entity.Usuario;
 import br.com.digitalhouse.projetointegradorpi.domain.exceptions.UserAlreadyExistsException;
 import br.com.digitalhouse.projetointegradorpi.domain.repository.FuncaoRepository;
@@ -37,14 +37,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public Usuario criarUsuario(Usuario usuario, String nomeFuncao) {
+    public Usuario criarUsuario(Usuario usuario/*, String nomeFuncao*/) {
         usuarioRepository.findByEmail(usuario.getEmail())
                 .ifPresent(usuarioExistente -> {
                     throw new UserAlreadyExistsException(usuario.getEmail());
                 });
-       Funcao funcao = funcaoRepository.findFuncaoByNome(nomeFuncao)
+      /*
+      Funcao funcao = funcaoRepository.findFuncaoByNome(nomeFuncao)
+
                 .orElse(funcaoRepository.save(new Funcao(nomeFuncao)));
         usuario.setFuncao(funcao);
+        */
 
         String senhaCodificada = passwordEncoder.encode(usuario.getSenha());
         usuario.setSenha(senhaCodificada);
