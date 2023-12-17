@@ -33,9 +33,11 @@ public class Funcao {
     }
     */
 
-
+/*
     @Override
     public int hashCode() {
         return Objects.hash(getNome());
     }
+
+ */
 }
