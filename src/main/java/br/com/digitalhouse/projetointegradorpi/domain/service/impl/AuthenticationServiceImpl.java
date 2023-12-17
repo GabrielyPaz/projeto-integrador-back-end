@@ -42,9 +42,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .ifPresent(usuarioExistente -> {
                     throw new UserAlreadyExistsException(usuario.getEmail());
                 });
-       /* Funcao funcao = funcaoRepository.findFuncaoByNome(nomeFuncao)
+       Funcao funcao = funcaoRepository.findFuncaoByNome(nomeFuncao)
                 .orElse(funcaoRepository.save(new Funcao(nomeFuncao)));
-        usuario.setFuncao(funcao);*/
+        usuario.setFuncao(funcao);
 
         String senhaCodificada = passwordEncoder.encode(usuario.getSenha());
         usuario.setSenha(senhaCodificada);

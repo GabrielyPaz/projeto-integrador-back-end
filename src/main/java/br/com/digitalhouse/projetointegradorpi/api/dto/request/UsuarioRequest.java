@@ -36,8 +36,8 @@ public class UsuarioRequest {
     @Schema(example = "Ptr$Ld12")
     private String senha;
 
-    //@NotBlank
+    @NotBlank
     @Schema(example = "ADMIN")
-    private String nomeFuncao;
+    private String nomeFuncao = "USUARIO";
 
 }
