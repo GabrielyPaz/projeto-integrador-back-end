@@ -28,12 +28,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public String login(String email, String senha) {
-            var autenticacao = new UsernamePasswordAuthenticationToken(email, senha);
-            authenticationManager.authenticate(autenticacao);
-            var usuario = usuarioRepository
-                    .findByEmail(email)
-                    .orElseThrow(() -> new IllegalArgumentException("Email ou senha invalido."));
-            return jwtService.gerandoToken(usuario);
+        var autenticacao = new UsernamePasswordAuthenticationToken(email, senha);
+        authenticationManager.authenticate(autenticacao);
+        var usuario = usuarioRepository
+                .findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Email ou senha invalido."));
+        return jwtService.gerandoToken(usuario);
     }
 
     @Override
@@ -43,11 +43,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                     throw new UserAlreadyExistsException(usuario.getEmail());
                 });
 
-      Funcao funcao = funcaoRepository.findFuncaoByNome(nomeFuncao)
+        Funcao funcao = funcaoRepository.findFuncaoByNome(nomeFuncao).orElseGet(() -> {
+            Funcao novaFuncao = new Funcao(nomeFuncao);
+            return funcaoRepository.save(novaFuncao);
+        });
 
-                .orElse(funcaoRepository.save(new Funcao(nomeFuncao)));
         usuario.setFuncao(funcao);
-
 
         String senhaCodificada = passwordEncoder.encode(usuario.getSenha());
         usuario.setSenha(senhaCodificada);
