@@ -7,4 +7,6 @@ public class ReservaNotFoundException extends RuntimeException{
         super("Id da reserva não encontrada" + id,  null, true, false);
     }
 
+
+
 }

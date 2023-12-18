@@ -1,9 +1,6 @@
 package br.com.digitalhouse.projetointegradorpi.api.handler;
 
-import br.com.digitalhouse.projetointegradorpi.domain.exceptions.CarNotFoundException;
-import br.com.digitalhouse.projetointegradorpi.domain.exceptions.ExpiredException;
-import br.com.digitalhouse.projetointegradorpi.domain.exceptions.UserAlreadyExistsException;
-import br.com.digitalhouse.projetointegradorpi.domain.exceptions.UserNotFoundException;
+import br.com.digitalhouse.projetointegradorpi.domain.exceptions.*;
 import io.jsonwebtoken.ClaimJwtException;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.AllArgsConstructor;
@@ -108,6 +105,35 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
+
+    @ExceptionHandler(ReservaAlreadyExistsException.class)
+    public ResponseEntity<Object> reservaAlreadyExistsHandler(ReservaAlreadyExistsException ex, WebRequest request) {
+        HttpStatusCode status = HttpStatus.BAD_REQUEST;
+        ProblemType problemType = ProblemType.INVALID_PARAMETER;
+
+        log.error(ex.getMessage(), ex);
+
+        Problem problem = createProblemBuilder(status, problemType, "Reserva já existe")
+                .userMessage(ex.getMessage())
+                .build();
+
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+    }
+
+    @ExceptionHandler(ReservaNotFoundException.class)
+    public ResponseEntity<Object> reservaNotFoundHandler(ReservaNotFoundException ex, WebRequest request) {
+        HttpStatusCode status = HttpStatus.NOT_FOUND;
+        ProblemType problemType = ProblemType.RESOURCE_NOT_FOUND;
+
+        log.error(ex.getMessage(), ex);
+
+        Problem problem = createProblemBuilder(status, problemType, "Reserva Nao encontrada")
+                .userMessage(ex.getMessage())
+                .build();
+
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+    }
+
 
     @Override
     protected ResponseEntity<Object> handleBindException(BindException ex,

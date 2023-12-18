@@ -1,10 +1,7 @@
 package br.com.digitalhouse.projetointegradorpi.domain.service.impl;
 
 import br.com.digitalhouse.projetointegradorpi.domain.entity.*;
-import br.com.digitalhouse.projetointegradorpi.domain.exceptions.CarNotFoundException;
-import br.com.digitalhouse.projetointegradorpi.domain.exceptions.CategoryNotFoundException;
-import br.com.digitalhouse.projetointegradorpi.domain.exceptions.ReservaNotFoundException;
-import br.com.digitalhouse.projetointegradorpi.domain.exceptions.UserNotFoundException;
+import br.com.digitalhouse.projetointegradorpi.domain.exceptions.*;
 import br.com.digitalhouse.projetointegradorpi.domain.repository.VeiculoRepository;
 import br.com.digitalhouse.projetointegradorpi.domain.repository.ReservaRepository;
 import br.com.digitalhouse.projetointegradorpi.domain.repository.UsuarioRepository;
@@ -32,7 +29,7 @@ public class ReservaServiceImpl implements ReservaService {
                 carroId);
 
         if (reservaJaExiste) {
-            throw new RuntimeException("Reserva ja existe");
+            throw new ReservaAlreadyExistsException();
         }
 
         Veiculo veiculo = veiculoRepository.findById(carroId)
