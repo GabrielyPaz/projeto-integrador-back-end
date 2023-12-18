@@ -1,5 +1,6 @@
 package br.com.digitalhouse.projetointegradorpi.api.dto.response.listResponse;
 
+import br.com.digitalhouse.projetointegradorpi.api.dto.response.CidadeResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,4 +13,5 @@ public class CarroListResponse {
     private UUID id;
     private String modelo;
     private String descricao;
+    private CidadeResponse cidade;
 }

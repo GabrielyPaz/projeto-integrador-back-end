@@ -7,6 +7,7 @@ import br.com.digitalhouse.projetointegradorpi.api.dto.response.listResponse.Car
 import br.com.digitalhouse.projetointegradorpi.domain.entity.Veiculo;
 import br.com.digitalhouse.projetointegradorpi.domain.filter.FiltroVeiculo;
 import br.com.digitalhouse.projetointegradorpi.domain.service.VeiculoService;
+import br.com.digitalhouse.projetointegradorpi.infrastructure.mapper.VeiculoMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,11 +22,13 @@ public class VeiculoController implements CarroApi {
 
     private final ObjectMapper objectMapper;
     private final VeiculoService veiculoService;
+    private final VeiculoMapper veiculoMapper;
 
     @Autowired
-    public VeiculoController(ObjectMapper objectMapper, VeiculoService veiculoService) {
+    public VeiculoController(ObjectMapper objectMapper, VeiculoService veiculoService, VeiculoMapper veiculoMapper) {
         this.objectMapper = objectMapper;
         this.veiculoService = veiculoService;
+        this.veiculoMapper = veiculoMapper;
     }
 
     @Override
@@ -39,7 +42,7 @@ public class VeiculoController implements CarroApi {
     @Override
     public ResponseEntity<Page<CarroListResponse>> buscarCarros(Pageable page, FiltroVeiculo filtroVeiculo) {
         Page<Veiculo> carros = veiculoService.buscarCarros(page, filtroVeiculo);
-        Page<CarroListResponse> map = carros.map(carro -> new CarroListResponse(carro.getId(), carro.getModelo(), carro.getDescricao()));
+        Page<CarroListResponse> map = carros.map(veiculoMapper::veiculoParaCarroResponse);
         return ResponseEntity.ok(map);
     }
 
